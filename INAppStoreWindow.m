@@ -866,9 +866,12 @@ NS_INLINE CGGradientRef INCreateGradientWithColors(NSColor *startingColor, NSCol
         minimizeFrame.origin.y = NSMaxY(zoomFrame) + self.trafficLightSeparation - 2.f;
         closeFrame.origin.y = NSMaxY(minimizeFrame) + self.trafficLightSeparation - 2.f;
     }
-    [close setFrame:closeFrame];
-    [minimize setFrame:minimizeFrame];
-    [zoom setFrame:zoomFrame];
+	
+	if ((NSAppKitVersionNumber < NSAppKitVersionNumber10_10) || !(self.styleMask & NSFullScreenWindowMask)) {
+		[close setFrame:closeFrame];
+		[minimize setFrame:minimizeFrame];
+		[zoom setFrame:zoomFrame];
+	}
 
     NSButton *docIconButton = [self standardWindowButton:NSWindowDocumentIconButton];
     if (docIconButton) {
